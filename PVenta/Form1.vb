@@ -14,7 +14,7 @@ Public Class Form1
     Dim dataReader As SqlDataReader
     Dim dataSet As New DataSet
 
-    Dim connectionString As String = "server=172.16.1.109; user id=sa; password=Dsdsistemas2012; database=dsd_mazatlan;"
+    Dim connectionString As String = "server=DESKTOP-3Q5HT2L\SQLEXPRESS; user id=sa; password=jsalas_bd; database=test;"
 
     Private Sub Form1_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         ClientsLoad()
@@ -79,44 +79,59 @@ Public Class Form1
 
     Private Sub ClientsLoad()
 
-        If dataSet.Tables.Contains("cat_productos") Then dataSet.Tables("cat_productos").Clear()
+        If dataSet.Tables.Contains("cat_articulos") Then dataSet.Tables("cat_articulos").Clear()
 
-        dataAdapter = llenar_tabla("SELECT TOP(10) c.id_producto, c.nombre FROM cat_productos c WHERE c.activo = 1 ORDER BY c.id_grupo_proveedor, c.id_linea")
-        dataAdapter.Fill(dataSet, "cat_productos")
+        dataAdapter = llenar_tabla("SELECT id_articulo, nombre FROM cat_articulos")
+        dataAdapter.Fill(dataSet, "cat_articulos")
         cerrar()
 
-        clientComboBox.DataSource = dataSet.Tables("cat_productos")
-        'clientComboBox.DataSource = DataHelper.LoadDataTable
-        clientComboBox.DisplayMember = "nombre"
-        clientComboBox.ValueMember = "id_producto"
-
+        articleComboBox.DataSource = dataSet.Tables("cat_articulos")
+        articleComboBox.DisplayMember = "nombre"
+        articleComboBox.ValueMember = "id_articulo"
 
     End Sub
 
     Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
+        'saleDetailDataGridView.Rows.Add()
+        'saleDetailDataGridView.Rows(0).Cells("cantidad").Value = 1
+        Dim articleId As Integer = articleComboBox.SelectedValue
+        Dim articleName As String = articleComboBox.Text
+        Dim price As Double = 5.0
+        Dim quantity As Integer = quantityTextBox.Text.Trim
+        Dim finalQuantity = quantity + GetQuantityAlreadyExists(articleId)
+        Dim total As Double = finalQuantity * price
+
+        saleDetailDataGridView.Rows.Add(articleId, articleName, finalQuantity, price, total)
 
     End Sub
 
-    Private Sub Button4_Click(sender As Object, e As EventArgs) Handles Button4.Click
+    Private Function GetQuantityAlreadyExists(ByVal productId As Integer) As Double
 
-    End Sub
+        Dim quantity As Double
 
-    Private Sub TextBox1_TextChanged(sender As Object, e As EventArgs) Handles TextBox1.TextChanged
+        For i = 0 To saleDetailDataGridView.RowCount - 1
+            If saleDetailDataGridView.Rows(i).Cells("id_producto").Value = productId Then
+                quantity = saleDetailDataGridView.Rows(i).Cells("cantidad").Value
+                saleDetailDataGridView.Rows.RemoveAt(i)
+                Exit For
+            End If
+        Next
 
-    End Sub
+        Return quantity
 
+    End Function
     Private Sub TextBox1_KeyPress(sender As Object, e As KeyPressEventArgs) Handles TextBox1.KeyPress
         If e.KeyChar = Chr(13) Then
 
             Dim query As String
             Dim hasProduct As Boolean
 
-            query = "SELECT nombre FROM cat_productos WHERE id_producto = " & TextBox1.Text.Trim
+            query = "SELECT id_cliente, nombre FROM cat_clientes WHERE id_cliente= " & TextBox1.Text.Trim
 
             dataReader = consulta(query)
             If dataReader.HasRows Then
                 If dataReader.Read Then
-                    MsgBox(dataReader("nombre"))
+                    clientNameTextBox.Text = dataReader("nombre")
                 End If
             Else
                 MsgBox("no se encontro producto")
@@ -124,5 +139,9 @@ Public Class Form1
             cerrar()
 
         End If
+    End Sub
+
+    Private Sub TextBox1_TextChanged(sender As Object, e As EventArgs) Handles TextBox1.TextChanged
+
     End Sub
 End Class

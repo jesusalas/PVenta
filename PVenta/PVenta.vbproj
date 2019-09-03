@@ -48,8 +48,6 @@
     <OptionInfer>On</OptionInfer>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Janus.Windows.Common.v3, Version=3.5.111.0, Culture=neutral, PublicKeyToken=376f63eb748ad132" />
-    <Reference Include="Janus.Windows.UI.v3, Version=3.5.111.0, Culture=neutral, PublicKeyToken=376f63eb748ad132, processorArchitecture=MSIL" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Deployment" />
