@@ -24,8 +24,9 @@ Partial Class Form1
     Private Sub InitializeComponent()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.Button1 = New System.Windows.Forms.Button()
-        Me.TextBox1 = New System.Windows.Forms.TextBox()
+        Me.clientIdTextBox = New System.Windows.Forms.TextBox()
         Me.saleDetailDataGridView = New System.Windows.Forms.DataGridView()
+        Me.folio = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.id_producto = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.nombre = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.cantidad = New System.Windows.Forms.DataGridViewTextBoxColumn()
@@ -37,8 +38,10 @@ Partial Class Form1
         Me.articleComboBox = New System.Windows.Forms.ComboBox()
         Me.Button2 = New System.Windows.Forms.Button()
         Me.Button3 = New System.Windows.Forms.Button()
-        Me.Button4 = New System.Windows.Forms.Button()
         Me.clientNameTextBox = New System.Windows.Forms.TextBox()
+        Me.folioTextBox = New System.Windows.Forms.TextBox()
+        Me.folioLabel = New System.Windows.Forms.Label()
+        Me.Button5 = New System.Windows.Forms.Button()
         CType(Me.saleDetailDataGridView, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
@@ -60,23 +63,29 @@ Partial Class Form1
         Me.Button1.Text = "Agregar"
         Me.Button1.UseVisualStyleBackColor = True
         '
-        'TextBox1
+        'clientIdTextBox
         '
-        Me.TextBox1.Location = New System.Drawing.Point(72, 45)
-        Me.TextBox1.Name = "TextBox1"
-        Me.TextBox1.Size = New System.Drawing.Size(76, 20)
-        Me.TextBox1.TabIndex = 2
+        Me.clientIdTextBox.Location = New System.Drawing.Point(72, 45)
+        Me.clientIdTextBox.Name = "clientIdTextBox"
+        Me.clientIdTextBox.Size = New System.Drawing.Size(76, 20)
+        Me.clientIdTextBox.TabIndex = 2
         '
         'saleDetailDataGridView
         '
         Me.saleDetailDataGridView.AllowUserToAddRows = False
         Me.saleDetailDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.saleDetailDataGridView.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.id_producto, Me.nombre, Me.cantidad, Me.precio, Me.total})
+        Me.saleDetailDataGridView.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.folio, Me.id_producto, Me.nombre, Me.cantidad, Me.precio, Me.total})
         Me.saleDetailDataGridView.Location = New System.Drawing.Point(25, 131)
         Me.saleDetailDataGridView.Name = "saleDetailDataGridView"
         Me.saleDetailDataGridView.ReadOnly = True
-        Me.saleDetailDataGridView.Size = New System.Drawing.Size(544, 150)
+        Me.saleDetailDataGridView.Size = New System.Drawing.Size(644, 150)
         Me.saleDetailDataGridView.TabIndex = 3
+        '
+        'folio
+        '
+        Me.folio.HeaderText = "folio"
+        Me.folio.Name = "folio"
+        Me.folio.ReadOnly = True
         '
         'id_producto
         '
@@ -147,7 +156,7 @@ Partial Class Form1
         '
         'Button2
         '
-        Me.Button2.Location = New System.Drawing.Point(25, 309)
+        Me.Button2.Location = New System.Drawing.Point(106, 307)
         Me.Button2.Name = "Button2"
         Me.Button2.Size = New System.Drawing.Size(75, 23)
         Me.Button2.TabIndex = 8
@@ -156,21 +165,12 @@ Partial Class Form1
         '
         'Button3
         '
-        Me.Button3.Location = New System.Drawing.Point(108, 309)
+        Me.Button3.Location = New System.Drawing.Point(189, 307)
         Me.Button3.Name = "Button3"
         Me.Button3.Size = New System.Drawing.Size(75, 23)
         Me.Button3.TabIndex = 9
         Me.Button3.Text = "Buscar"
         Me.Button3.UseVisualStyleBackColor = True
-        '
-        'Button4
-        '
-        Me.Button4.Location = New System.Drawing.Point(198, 309)
-        Me.Button4.Name = "Button4"
-        Me.Button4.Size = New System.Drawing.Size(75, 23)
-        Me.Button4.TabIndex = 10
-        Me.Button4.Text = "Cancelar"
-        Me.Button4.UseVisualStyleBackColor = True
         '
         'clientNameTextBox
         '
@@ -179,13 +179,41 @@ Partial Class Form1
         Me.clientNameTextBox.Size = New System.Drawing.Size(334, 20)
         Me.clientNameTextBox.TabIndex = 11
         '
+        'folioTextBox
+        '
+        Me.folioTextBox.Enabled = False
+        Me.folioTextBox.Location = New System.Drawing.Point(72, 12)
+        Me.folioTextBox.Name = "folioTextBox"
+        Me.folioTextBox.Size = New System.Drawing.Size(76, 20)
+        Me.folioTextBox.TabIndex = 13
+        '
+        'folioLabel
+        '
+        Me.folioLabel.AutoSize = True
+        Me.folioLabel.Location = New System.Drawing.Point(26, 12)
+        Me.folioLabel.Name = "folioLabel"
+        Me.folioLabel.Size = New System.Drawing.Size(29, 13)
+        Me.folioLabel.TabIndex = 12
+        Me.folioLabel.Text = "Folio"
+        '
+        'Button5
+        '
+        Me.Button5.Location = New System.Drawing.Point(25, 307)
+        Me.Button5.Name = "Button5"
+        Me.Button5.Size = New System.Drawing.Size(75, 23)
+        Me.Button5.TabIndex = 14
+        Me.Button5.Text = "Nuevo"
+        Me.Button5.UseVisualStyleBackColor = True
+        '
         'Form1
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(800, 450)
+        Me.Controls.Add(Me.Button5)
+        Me.Controls.Add(Me.folioTextBox)
+        Me.Controls.Add(Me.folioLabel)
         Me.Controls.Add(Me.clientNameTextBox)
-        Me.Controls.Add(Me.Button4)
         Me.Controls.Add(Me.Button3)
         Me.Controls.Add(Me.Button2)
         Me.Controls.Add(Me.articleComboBox)
@@ -193,7 +221,7 @@ Partial Class Form1
         Me.Controls.Add(Me.quantityTextBox)
         Me.Controls.Add(Me.Label2)
         Me.Controls.Add(Me.saleDetailDataGridView)
-        Me.Controls.Add(Me.TextBox1)
+        Me.Controls.Add(Me.clientIdTextBox)
         Me.Controls.Add(Me.Button1)
         Me.Controls.Add(Me.Label1)
         Me.Name = "Form1"
@@ -206,7 +234,7 @@ Partial Class Form1
 
     Friend WithEvents Label1 As Label
     Friend WithEvents Button1 As Button
-    Friend WithEvents TextBox1 As TextBox
+    Friend WithEvents clientIdTextBox As TextBox
     Friend WithEvents saleDetailDataGridView As DataGridView
     Friend WithEvents quantityTextBox As TextBox
     Friend WithEvents Label2 As Label
@@ -214,11 +242,14 @@ Partial Class Form1
     Friend WithEvents articleComboBox As ComboBox
     Friend WithEvents Button2 As Button
     Friend WithEvents Button3 As Button
-    Friend WithEvents Button4 As Button
+    Friend WithEvents clientNameTextBox As TextBox
+    Friend WithEvents folio As DataGridViewTextBoxColumn
     Friend WithEvents id_producto As DataGridViewTextBoxColumn
     Friend WithEvents nombre As DataGridViewTextBoxColumn
     Friend WithEvents cantidad As DataGridViewTextBoxColumn
     Friend WithEvents precio As DataGridViewTextBoxColumn
     Friend WithEvents total As DataGridViewTextBoxColumn
-    Friend WithEvents clientNameTextBox As TextBox
+    Friend WithEvents folioTextBox As TextBox
+    Friend WithEvents folioLabel As Label
+    Friend WithEvents Button5 As Button
 End Class
